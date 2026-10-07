@@ -6,6 +6,7 @@ FRAME_COUNT = 8
 ROW_RUN_LEFT, ROW_RUN_RIGHT, ROW_IDLE_LEFT, ROW_IDLE_RIGHT = 0, 100, 200, 300
 BOY_HALF_W, BOY_HALF_H = 33, 43
 RUN_SPEED = 300
+FRAMES_PER_SEC = 12
 
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
 tuk_ground = load_image('TUK_GROUND.png')
@@ -65,12 +66,12 @@ while running:
 
     clear_canvas()
     tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-    character.clip_draw(frame * FRAME_SIZE, get_row(), FRAME_SIZE, FRAME_SIZE, x, y)
+    character.clip_draw(int(frame) * FRAME_SIZE, get_row(), FRAME_SIZE, FRAME_SIZE, x, y)
     update_canvas()
     handle_events()
     if dir_x != 0:
         facing = 1 if dir_x > 0 else -1
-    frame = (frame + 1) % FRAME_COUNT
+    frame = (frame + FRAMES_PER_SEC * frame_time) % FRAME_COUNT
     distance = RUN_SPEED * frame_time
     x = clamp(BOY_HALF_W, x + dir_x * distance, TUK_WIDTH - BOY_HALF_W)
     y = clamp(BOY_HALF_H, y + dir_y * distance, TUK_HEIGHT - BOY_HALF_H)
