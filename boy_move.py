@@ -50,7 +50,7 @@ while running:
     if dir_x != 0 or dir_y != 0:
         row = 100 if facing == 1 else 0
     else:
-        row = 300
+        row = 300 if facing == 1 else 200
     character.clip_draw(frame * FRAME_SIZE, row, FRAME_SIZE, FRAME_SIZE, x, y)
     update_canvas()
     handle_events()
