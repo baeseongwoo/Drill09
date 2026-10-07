@@ -4,6 +4,7 @@ TUK_WIDTH, TUK_HEIGHT = 1280, 1024
 FRAME_SIZE = 100
 FRAME_COUNT = 8
 ROW_RUN_LEFT, ROW_RUN_RIGHT, ROW_IDLE_LEFT, ROW_IDLE_RIGHT = 0, 100, 200, 300
+BOY_HALF_W, BOY_HALF_H = 33, 43
 
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
 tuk_ground = load_image('TUK_GROUND.png')
@@ -61,9 +62,9 @@ while running:
         facing = 1 if dir_x > 0 else -1
     frame = (frame + 1) % FRAME_COUNT
     x += dir_x * 10
-    x = max(0, min(x, TUK_WIDTH))
+    x = max(BOY_HALF_W, min(x, TUK_WIDTH - BOY_HALF_W))
     y += dir_y * 10
-    y = max(0, min(y, TUK_HEIGHT))
+    y = max(BOY_HALF_H, min(y, TUK_HEIGHT - BOY_HALF_H))
     delay(0.05)
 
 close_canvas()
