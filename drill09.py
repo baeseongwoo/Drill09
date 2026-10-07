@@ -1,7 +1,7 @@
 from pico2d import *
 
-# 화면 (배경 이미지와 같은 크기)
-TUK_WIDTH, TUK_HEIGHT = 1280, 1024
+# 캔버스 크기
+CANVAS_WIDTH, CANVAS_HEIGHT = 1280, 1024
 
 # 스프라이트 시트: 100x100 칸이 가로 8개(프레임), 세로 4줄(동작)
 FRAME_SIZE = 100
@@ -16,7 +16,7 @@ RUN_SPEED = 300         # 이동 속도 (px/초)
 FRAMES_PER_SEC = 12     # 애니메이션 속도 (프레임/초)
 DIAGONAL = 0.7071       # 대각선 이동 보정값 (1/√2)
 
-open_canvas(TUK_WIDTH, TUK_HEIGHT)
+open_canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
 tuk_ground = load_image('TUK_GROUND.png')
 character = load_image('animation_sheet.png')
 
@@ -69,19 +69,19 @@ def update(frame_time):
     distance = RUN_SPEED * frame_time
     if dir_x != 0 and dir_y != 0:
         distance *= DIAGONAL
-    x = clamp(BOY_HALF_W, x + dir_x * distance, TUK_WIDTH - BOY_HALF_W)
-    y = clamp(BOY_HALF_H, y + dir_y * distance, TUK_HEIGHT - BOY_HALF_H)
+    x = clamp(BOY_HALF_W, x + dir_x * distance, CANVAS_WIDTH - BOY_HALF_W)
+    y = clamp(BOY_HALF_H, y + dir_y * distance, CANVAS_HEIGHT - BOY_HALF_H)
 
 
 def draw():
     clear_canvas()
-    tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+    tuk_ground.draw(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
     character.clip_draw(int(frame) * FRAME_SIZE, get_row(), FRAME_SIZE, FRAME_SIZE, x, y)
     update_canvas()
 
 
 running = True
-x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
+x, y = CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2
 frame = 0
 dir_x = 0       # 좌우 입력: -1, 0, 1
 dir_y = 0       # 상하 입력: -1, 0, 1
