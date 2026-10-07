@@ -51,6 +51,7 @@ while running:
     handle_events()
     frame = (frame + 1) % FRAME_COUNT
     x += dir_x * 10
+    y += dir_y * 10
     delay(0.05)
 
 close_canvas()
