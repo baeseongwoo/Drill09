@@ -1,7 +1,8 @@
 from pico2d import *
 
-# 캔버스 크기
-CANVAS_WIDTH, CANVAS_HEIGHT = 1280, 1024
+# 캔버스 크기: 배경 원본(1280x1024)을 같은 비율(5:4)로 줄인 크기.
+# 원본 크기로 열면 창이 모니터보다 커서 위아래가 화면 밖으로 잘린다
+CANVAS_WIDTH, CANVAS_HEIGHT = 900, 720
 
 # 스프라이트 시트: 100x100 칸이 가로 8개(프레임), 세로 4줄(동작)
 FRAME_SIZE = 100
