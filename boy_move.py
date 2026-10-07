@@ -39,6 +39,10 @@ def handle_events():
                 dir_y += 1
 
 
+def clamp(low, value, high):
+    return max(low, min(value, high))
+
+
 def get_row():
     if dir_x != 0 or dir_y != 0:
         return ROW_RUN_RIGHT if facing == 1 else ROW_RUN_LEFT
@@ -61,10 +65,8 @@ while running:
     if dir_x != 0:
         facing = 1 if dir_x > 0 else -1
     frame = (frame + 1) % FRAME_COUNT
-    x += dir_x * 10
-    x = max(BOY_HALF_W, min(x, TUK_WIDTH - BOY_HALF_W))
-    y += dir_y * 10
-    y = max(BOY_HALF_H, min(y, TUK_HEIGHT - BOY_HALF_H))
+    x = clamp(BOY_HALF_W, x + dir_x * 10, TUK_WIDTH - BOY_HALF_W)
+    y = clamp(BOY_HALF_H, y + dir_y * 10, TUK_HEIGHT - BOY_HALF_H)
     delay(0.05)
 
 close_canvas()
