@@ -61,6 +61,7 @@ while running:
         facing = 1 if dir_x > 0 else -1
     frame = (frame + 1) % FRAME_COUNT
     x += dir_x * 10
+    x = max(0, min(x, TUK_WIDTH))
     y += dir_y * 10
     delay(0.05)
 
