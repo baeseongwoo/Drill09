@@ -42,6 +42,7 @@ x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
 frame = 0
 dir_x = 0
 dir_y = 0
+facing = 1
 
 while running:
     clear_canvas()
@@ -53,6 +54,8 @@ while running:
     character.clip_draw(frame * FRAME_SIZE, row, FRAME_SIZE, FRAME_SIZE, x, y)
     update_canvas()
     handle_events()
+    if dir_x != 0:
+        facing = 1 if dir_x > 0 else -1
     frame = (frame + 1) % FRAME_COUNT
     x += dir_x * 10
     y += dir_y * 10
