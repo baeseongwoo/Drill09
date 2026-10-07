@@ -52,6 +52,25 @@ def get_row():
     return ROW_IDLE_RIGHT if facing == 1 else ROW_IDLE_LEFT
 
 
+def update(frame_time):
+    global x, y, frame, facing
+    if dir_x != 0:
+        facing = 1 if dir_x > 0 else -1
+    frame = (frame + FRAMES_PER_SEC * frame_time) % FRAME_COUNT
+    distance = RUN_SPEED * frame_time
+    if dir_x != 0 and dir_y != 0:
+        distance *= DIAGONAL
+    x = clamp(BOY_HALF_W, x + dir_x * distance, TUK_WIDTH - BOY_HALF_W)
+    y = clamp(BOY_HALF_H, y + dir_y * distance, TUK_HEIGHT - BOY_HALF_H)
+
+
+def draw():
+    clear_canvas()
+    tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+    character.clip_draw(int(frame) * FRAME_SIZE, get_row(), FRAME_SIZE, FRAME_SIZE, x, y)
+    update_canvas()
+
+
 running = True
 x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
 frame = 0
@@ -65,19 +84,9 @@ while running:
     frame_time = now - prev_time
     prev_time = now
 
-    clear_canvas()
-    tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-    character.clip_draw(int(frame) * FRAME_SIZE, get_row(), FRAME_SIZE, FRAME_SIZE, x, y)
-    update_canvas()
     handle_events()
-    if dir_x != 0:
-        facing = 1 if dir_x > 0 else -1
-    frame = (frame + FRAMES_PER_SEC * frame_time) % FRAME_COUNT
-    distance = RUN_SPEED * frame_time
-    if dir_x != 0 and dir_y != 0:
-        distance *= DIAGONAL
-    x = clamp(BOY_HALF_W, x + dir_x * distance, TUK_WIDTH - BOY_HALF_W)
-    y = clamp(BOY_HALF_H, y + dir_y * distance, TUK_HEIGHT - BOY_HALF_H)
+    update(frame_time)
+    draw()
     delay(0.01)
 
 close_canvas()
