@@ -75,7 +75,7 @@ def update(frame_time):
 
 def draw():
     clear_canvas()
-    tuk_ground.draw(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2)
+    tuk_ground.draw(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2, CANVAS_WIDTH, CANVAS_HEIGHT)
     character.clip_draw(int(frame) * FRAME_SIZE, get_row(), FRAME_SIZE, FRAME_SIZE, x, y)
     update_canvas()
 
