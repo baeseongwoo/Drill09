@@ -3,6 +3,7 @@ from pico2d import *
 TUK_WIDTH, TUK_HEIGHT = 1280, 1024
 FRAME_SIZE = 100
 FRAME_COUNT = 8
+ROW_RUN_LEFT, ROW_RUN_RIGHT, ROW_IDLE_LEFT, ROW_IDLE_RIGHT = 0, 100, 200, 300
 
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
 tuk_ground = load_image('TUK_GROUND.png')
@@ -37,6 +38,12 @@ def handle_events():
                 dir_y += 1
 
 
+def get_row():
+    if dir_x != 0 or dir_y != 0:
+        return ROW_RUN_RIGHT if facing == 1 else ROW_RUN_LEFT
+    return ROW_IDLE_RIGHT if facing == 1 else ROW_IDLE_LEFT
+
+
 running = True
 x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
 frame = 0
@@ -47,11 +54,7 @@ facing = 1
 while running:
     clear_canvas()
     tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-    if dir_x != 0 or dir_y != 0:
-        row = 100 if facing == 1 else 0
-    else:
-        row = 300 if facing == 1 else 200
-    character.clip_draw(frame * FRAME_SIZE, row, FRAME_SIZE, FRAME_SIZE, x, y)
+    character.clip_draw(frame * FRAME_SIZE, get_row(), FRAME_SIZE, FRAME_SIZE, x, y)
     update_canvas()
     handle_events()
     if dir_x != 0:
